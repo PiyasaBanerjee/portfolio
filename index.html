@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Piyasa Banerjee | AI-Powered Portfolio</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f9fafc;
+            color: #1e293b;
+            line-height: 1.5;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* animated gradient bg & geometric noise */
+        .bg-abstract {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 10% 30%, rgba(255,245,240,0.6), rgba(220,240,255,0.8));
+        }
+
+        /* moving geometric shapes */
+        .shape {
+            position: fixed;
+            z-index: -1;
+            background: rgba(99, 102, 241, 0.1);
+            backdrop-filter: blur(2px);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            animation: floatShape 18s infinite alternate ease-in-out;
+        }
+
+        .shape-1 {
+            width: 320px;
+            height: 320px;
+            top: 5%;
+            left: -100px;
+            background: radial-gradient(circle, rgba(56,189,248,0.2), rgba(139,92,246,0.15));
+            animation-duration: 22s;
+        }
+        .shape-2 {
+            width: 420px;
+            height: 420px;
+            bottom: -80px;
+            right: -120px;
+            background: radial-gradient(circle, rgba(244,114,182,0.15), rgba(250,204,21,0.1));
+            border-radius: 70% 30% 50% 50% / 40% 50% 60% 50%;
+            animation-duration: 25s;
+            animation-direction: alternate-reverse;
+        }
+        .shape-3 {
+            width: 180px;
+            height: 180px;
+            top: 40%;
+            right: 5%;
+            background: rgba(6,182,212,0.12);
+            border-radius: 30% 70% 70% 30% / 30% 35% 65% 70%;
+            animation-duration: 14s;
+        }
+        .shape-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            left: 5%;
+            background: rgba(217,70,239,0.08);
+            border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+            animation-duration: 19s;
+        }
+        @keyframes floatShape {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(30px, -40px) rotate(8deg); }
+        }
+
+        /* neuron line network (svg animation) */
+        .neuron-web {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.35;
+        }
+
+        /* main container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* header card style */
+        .profile-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(14px);
+            border-radius: 3rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+        .portrait-area {
+            flex: 0 0 240px;
+            text-align: center;
+        }
+        .portrait-img {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
+            background: #fff;
+            transition: transform 0.3s;
+        }
+        .portrait-img:hover {
+            transform: scale(1.02);
+        }
+        .info h1 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #4f46e5, #c2410c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+        }
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+        .badge {
+            background: rgba(79,70,229,0.15);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .contact-links {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .contact-links a {
+            color: #334155;
+            background: white;
+            padding: 0.5rem 1.1rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .contact-links a:hover {
+            background: #4f46e5;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* section style */
+        .section {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            padding: 1.8rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255,255,255,0.6);
+            transition: all 0.2s;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 6px solid #4f46e5;
+            padding-left: 1rem;
+        }
+        .edu-grid, .skills-grid, .project-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .edu-card {
+            background: rgba(255,255,245,0.7);
+            flex: 1 1 200px;
+            padding: 1rem;
+            border-radius: 1.5rem;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+        .skill-tag {
+            background: linear-gradient(145deg, #f1f5f9, #ffffff);
+            border-radius: 2rem;
+            padding: 0.5rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .skill-tag i, .skill-tag img {
+            font-size: 1.2rem;
+        }
+        .skills-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        .project-card {
+            background: rgba(255,255,255,0.85);
+            border-radius: 1.5rem;
+            padding: 1.4rem;
+            flex: 1 1 280px;
+            transition: all 0.25s;
+            border: 1px solid #eef2ff;
+        }
+        .project-card:hover {
+            transform: translateY(-6px);
+            background: white;
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.1);
+        }
+        .tech-stack-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 1rem 0 0.5rem;
+        }
+        .tech-icon {
+            background: #eef2ff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .logo-animate {
+            transition: transform 0.2s;
+        }
+        .logo-animate:hover {
+            transform: scale(1.1) rotate(2deg);
+        }
+        .strength-hobby {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+        }
+        .personal-detail {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 1.5rem;
+            font-size: 0.9rem;
+        }
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 1rem; }
+            .profile-card { flex-direction: column; align-items: center; text-align: center; }
+            .section-title { font-size: 1.5rem; }
+        }
+        .moving-icon {
+            animation: subtlePulse 3s infinite;
+        }
+        @keyframes subtlePulse {
+            0% { opacity: 0.7; transform: scale(1);}
+            50% { opacity: 1; transform: scale(1.05);}
+            100% { opacity: 0.7; transform: scale(1);}
+        }
+        hr {
+            margin: 1rem 0;
+            border-color: rgba(79,70,229,0.2);
+        }
+    </style>
+</head>
+<body>
+<div class="bg-abstract"></div>
+<!-- floating geometric shapes -->
+<div class="shape shape-1"></div>
+<div class="shape shape-2"></div>
+<div class="shape shape-3"></div>
+<div class="shape shape-4"></div>
+
+<!-- animated neuron network SVG -->
+<svg class="neuron-web" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+    <defs>
+        <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.1"/>
+        </radialGradient>
+    </defs>
+    <path d="M100,200 L300,120 L500,260 L700,180 L900,280 L1100,200" stroke="url(#glow)" stroke-width="1.5" fill="none" stroke-dasharray="6 4">
+        <animate attributeName="stroke-dashoffset" values="0;50" dur="20s" repeatCount="indefinite" />
+    </path>
+    <path d="M200,500 L350,420 L500,550 L680,470 L850,590 L1050,520" stroke="#c084fc" stroke-width="1.2" fill="none" opacity="0.5">
+        <animate attributeName="stroke-dashoffset" values="0;30" dur="15s" repeatCount="indefinite" />
+    </path>
+    <circle cx="300" cy="120" r="6" fill="#a855f7" filter="url(#glow)">
+        <animate attributeName="r" values="6;9;6" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="700" cy="180" r="5" fill="#3b82f6">
+        <animate attributeName="r" values="5;8;5" dur="3.5s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="1100" cy="200" r="7" fill="#ec489a">
+        <animate attributeName="r" values="7;11;7" dur="4.2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="500" cy="550" r="5" fill="#f97316">
+        <animate attributeName="r" values="5;9;5" dur="3.8s" repeatCount="indefinite" />
+    </circle>
+    <path d="M450,650 L520,620 L590,650 L650,620" stroke="#f0abfc" stroke-width="1" fill="none" stroke-dasharray="4 3" />
+</svg>
+
+<div class="container">
+    <!-- profile header -->
+    <div class="profile-card">
+        <div class="portrait-area">
+            <!-- professional portrait placeholder with clean description: a young woman with calm expression, white shirt, tie, blue background -->
+            <img class="portrait-img" src="photo_piyasa.jpeg" alt="Piyasa Banerjee professional portrait" 
+                 onerror="this.src='https://ui-avatars.com/api/?background=4f46e5&color=fff&bold=true&size=200&name=Piyasa+B'">
+            <div style="margin-top: 0.5rem; font-size:0.7rem; color:#4b5563;"><i class="fas fa-camera"></i> Professional | Tech Enthusiast</div>
+        </div>
+        <div class="info">
+            <h1>PIYASA BANERJEE</h1>
+            <div class="badge-group">
+                <span class="badge"><i class="fas fa-code"></i> MCA @ MAKAUT</span>
+                <span class="badge"><i class="fas fa-laptop-code"></i> Front-End Dev</span>
+                <span class="badge"><i class="fas fa-brain"></i> AI ready</span>
+            </div>
+            <p style="max-width: 600px; margin: 0.7rem 0;">Motivated MCA student with strong foundation in programming & front-end development. Passionate about interactive web apps and emerging tech.</p>
+            <div class="contact-links">
+                <a href="mailto:piya9153914554@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                <a href="tel:6296520923"><i class="fas fa-phone-alt"></i> +91 6296520923</a>
+                <a href="https://www.linkedin.com/in/piyasa-banerjee-96125b29b" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/PiyasaBanerjee" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+            <div style="margin-top: 12px;"><i class="fas fa-map-marker-alt"></i> Galsi, Purba Bardhaman, 713406</div>
+        </div>
+    </div>
+
+    <!-- Education Section -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-graduation-cap" style="color:#4f46e5;"></i> Education</div>
+        <div class="edu-grid">
+            <div class="edu-card"><i class="fas fa-university"></i> <strong>MCA (Pursuing)</strong><br>MAKAUT University<br>2024 – Present | 4th Sem</div>
+            <div class="edu-card"><i class="fas fa-chalkboard-user"></i> <strong>BCA</strong><br>The University of Burdwan<br>2021 – 2024 | 74.8%</div>
+            <div class="edu-card"><i class="fas fa-school"></i> <strong>12th (H.S.)</strong><br>WBCHSE | 83.6%</div>
+            <div class="edu-card"><i class="fas fa-book-open"></i> <strong>10th (Madhyamik)</strong><br>WBBSE | 60%</div>
+        </div>
+    </div>
+
+    <!-- Technical Skills with Logo Animation & Icons -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-microchip"></i> Tech Stack & Skills <span class="moving-icon"><i class="fas fa-robot"></i></span></div>
+        <div style="display: flex; flex-direction: column; gap: 1.2rem;">
+            <div>
+                <strong><i class="fas fa-code"></i> Programming Languages</strong>
+                <div class="skills-wrapper">
+                    <span class="skill-tag"><i class="fab fa-cuttlefish"></i> C</span>
+                    <span class="skill-tag"><i class="fab fa-cuttlefish"></i> C++</span>
+                    <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+                    <span class="skill-tag"><i class="fab fa-php"></i> PHP / Laravel</span>
+                </div>
+            </div>
+            <div>
+                <strong><i class="fas fa-palette"></i> Front-End & Design</strong>
+                <div class="skills-wrapper">
+                    <span class="skill-tag logo-animate"><i class="fab fa-html5"></i> HTML5</span>
+                    <span class="skill-tag logo-animate"><i class="fab fa-css3-alt"></i> CSS3</span>
+                    <span class="skill-tag logo-animate"><i class="fab fa-js"></i> JavaScript</span>
+                    <span class="skill-tag logo-animate"><i class="fab fa-react"></i> React.js</span>
+                    <span class="skill-tag"><i class="fab fa-bootstrap"></i> Bootstrap 5</span>
+                </div>
+            </div>
+            <div>
+                <strong><i class="fas fa-database"></i> Database & Tools</strong>
+                <div class="skills-wrapper">
+                    <span class="skill-tag"><i class="fas fa-database"></i> MySQL</span>
+                    <span class="skill-tag"><i class="fab fa-git-alt"></i> Git</span>
+                    <span class="skill-tag"><i class="fas fa-code-branch"></i> VS Code</span>
+                    <span class="skill-tag"><i class="fas fa-project-diagram"></i> Eclipse</span>
+                    <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
+                </div>
+            </div>
+            <div><strong>Soft Skills:</strong> Problem-solving, Teamwork, Time Management, Quick Learner</div>
+        </div>
+    </div>
+
+    <!-- Projects & Experience -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-laptop"></i> Projects & Experience</div>
+        <div class="project-grid">
+            <div class="project-card">
+                <h3><i class="fas fa-hospital-user"></i> Doctor Website <span style="font-size: 0.8rem;">(BCA Project)</span></h3>
+                <div class="tech-stack-icons">
+                    <span class="tech-icon"><i class="fab fa-react"></i> React</span>
+                    <span class="tech-icon"><i class="fab fa-html5"></i> HTML/CSS</span>
+                    <span class="tech-icon"><i class="fab fa-js"></i> JS</span>
+                </div>
+                <p>Front-end developer role: appointment booking UI, doctor profiles, fully responsive patient interface. Enhanced user experience with interactive design.</p>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-shield-alt"></i> InsureMate <span style="font-size: 0.8rem;">(MCA Project)</span></h3>
+                <div class="tech-stack-icons">
+                    <span class="tech-icon"><i class="fab fa-laravel"></i> Laravel</span>
+                    <span class="tech-icon"><i class="fab fa-php"></i> PHP</span>
+                    <span class="tech-icon"><i class="fas fa-chart-line"></i> MySQL</span>
+                    <span class="tech-icon"><i class="fab fa-bootstrap"></i> Bootstrap</span>
+                    <span class="tech-icon"><i class="fab fa-node"></i> Node.js</span>
+                </div>
+                <p>Insurance platform: premium calculator, policy browsing, interactive dashboard. Built with Laravel & responsive front-end for real-time policy tracking.</p>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-microchip"></i> AI Neural Portfolio</h3>
+                <div class="tech-stack-icons">
+                    <span class="tech-icon"><i class="fas fa-css3-alt"></i> CSS Art</span>
+                    <span class="tech-icon"><i class="fas fa-shapes"></i> Geometric Motion</span>
+                    <span class="tech-icon"><i class="fas fa-brain"></i> Neuron Vibes</span>
+                </div>
+                <p>Dynamic portfolio with animated floating shapes, AI-neuron SVG trails, and interactive tech badges — showcasing modern front-end creativity.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Strengths & Hobbies + Personal Details -->
+    <div class="section">
+        <div class="section-title"><i class="fas fa-heart"></i> Strengths & Hobbies</div>
+        <div class="strength-hobby">
+            <div style="flex:1">
+                <h4><i class="fas fa-bolt"></i> Strengths</h4>
+                <ul style="margin-left: 1.2rem; list-style-type: none;">
+                    <li>✔ Hardworking & Smart-working</li>
+                    <li>✔ Quick Learner & Adaptable</li>
+                    <li>✔ Strong Analytical Skills</li>
+                    <li>✔ Good Communication & Teamwork</li>
+                </ul>
+            </div>
+            <div style="flex:1">
+                <h4><i class="fas fa-palette"></i> Hobbies</h4>
+                <ul style="margin-left: 1.2rem; list-style-type: none;">
+                    <li><i class="fas fa-seedling"></i> Gardening</li>
+                    <li><i class="fas fa-headphones"></i> Listening to Music</li>
+                    <li><i class="fas fa-coins"></i> Coin Collection</li>
+                    <li><i class="fas fa-book"></i> Reading Books</li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div class="personal-detail">
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between;">
+                <span><strong>Father's Name:</strong> Mrigendra Nath Banerjee</span>
+                <span><strong>DOB:</strong> 18/10/2002</span>
+                <span><strong>Marital Status:</strong> Single</span>
+                <span><strong>Nationality:</strong> Indian</span>
+                <span><strong>Languages:</strong> Bengali (Mother tongue), English, Hindi</span>
+            </div>
+        </div>
+        <div style="margin-top: 1rem; font-style: italic; text-align: right;">
+            <p>Declaration: I hereby declare that the above information is true to the best of my knowledge and belief.</p>
+            <p><strong>Place:</strong> Galsi, Purba Bardhaman | <strong>Date:</strong> 1/3/2026 &nbsp; <i class="fas fa-signature"></i> Piyasa Banerjee</p>
+        </div>
+    </div>
+    <footer>
+        <i class="fas fa-globe"></i> Piyasa Banerjee • AI-enhanced portfolio • Geometric & Neural motion design
+    </footer>
+</div>
+
+<!-- add extra dynamic mouse move parallax for shapes (subtle) -->
+<script>
+    // just for extra moving interaction with shapes (soft neuron touch)
+    document.addEventListener('mousemove', (e) => {
+        const shapes = document.querySelectorAll('.shape');
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        shapes.forEach((shape, idx) => {
+            let shiftX = (mouseX - 0.5) * 15;
+            let shiftY = (mouseY - 0.5) * 12;
+            shape.style.transform = `translate(${shiftX * (idx+1) * 0.5}px, ${shiftY * (idx+1) * 0.5}px) rotate(${shiftX * 4}deg)`;
+        });
+    });
+
+    // optional: add dynamic tech icons logos from font awesome already used, also small animation to skill-tag
+    const skillTags = document.querySelectorAll('.skill-tag');
+    skillTags.forEach(tag => {
+        tag.addEventListener('mouseenter', () => {
+            tag.style.transform = 'scale(1.07)';
+            tag.style.transition = '0.2s';
+        });
+        tag.addEventListener('mouseleave', () => {
+            tag.style.transform = 'scale(1)';
+        });
+    });
+</script>
+</body>
+</html>
